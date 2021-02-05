@@ -3,10 +3,9 @@ package com.t9.octavo.controllers;
 import com.t9.octavo.RecordNotFoundException;
 import com.t9.octavo.models.Factura;
 import com.t9.octavo.models.NotaCredito;
+import com.t9.octavo.services.ControlNotaCredito;
 import com.t9.octavo.services.NotaCreditoService;
 import com.t9.octavo.services.SequenceGeneratorService;
-
-import logica.ControlNotaCredito;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,13 +63,13 @@ public class NotaCreditoController {
 	 @PostMapping("/notaCredito")
 	public ResponseEntity<NotaCredito> createnotaCredito(@RequestBody NotaCredito notaCredito){
 	
-		Long id = (long) 1;
+		String id="1";
 		if(cnc.findById(id)){
 			
 			if(cnc.limiteNotaCredito(factura.getTotalVenta())) {
 				//false mayor
 				//true menor o igual
-				notaCredito.setId(seg.getSequenceNumber(NotaCredito.SEQUENCE_NAME));//generamos el id increm
+				notaCredito.setId(seg.getSequenceNumbernC(NotaCredito.SEQUENCE_NAME));//generamos el id increm
 				service.createnotaCredito(notaCredito);//creamos la nota credito
 				return new ResponseEntity<NotaCredito>(notaCredito, new HttpHeaders(), HttpStatus.OK);
 			}else {

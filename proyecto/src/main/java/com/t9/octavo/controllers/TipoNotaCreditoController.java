@@ -8,11 +8,9 @@ import com.t9.octavo.services.TipoNotaCreditoService;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.repository.ExistsQuery;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.beans.beancontext.BeanContextServices;
 import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -52,7 +50,7 @@ public class TipoNotaCreditoController {
 	@PostMapping("/tipoNotaCredito")
 	public ResponseEntity<TipoNotaCredito> createtipoNotaCredito(@RequestBody TipoNotaCredito tipoNotaCredito){
 		
-		tipoNotaCredito.setId(seg.getSequenceNumber(TipoNotaCredito.SEQUENCE_NAME));
+		tipoNotaCredito.setId(seg.getSequenceNumbertN(TipoNotaCredito.SEQUENCE_NAME));
 		service.createtipoNotaCredito(tipoNotaCredito);
 		return new ResponseEntity<TipoNotaCredito>(tipoNotaCredito, new HttpHeaders(), HttpStatus.OK);
 	}

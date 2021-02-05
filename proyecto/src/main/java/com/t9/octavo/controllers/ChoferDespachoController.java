@@ -2,7 +2,6 @@ package com.t9.octavo.controllers;
 
 import com.t9.octavo.RecordNotFoundException;
 import com.t9.octavo.models.ChoferDespacho;
-import com.t9.octavo.models.TipoNotaCredito;
 import com.t9.octavo.services.ChoferDespachoService;
 import com.t9.octavo.services.SequenceGeneratorService;
 
@@ -18,10 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class ChoferDespachoController {
 	@Autowired
 	ChoferDespachoService service;
@@ -50,9 +51,17 @@ public class ChoferDespachoController {
 
 	@PostMapping("/choferDespacho")
 	public ResponseEntity<ChoferDespacho> createchoferDespacho(@RequestBody ChoferDespacho choferDespacho){
-		choferDespacho.setId(seg.getSequenceNumber(ChoferDespacho.SEQUENCE_NAME));
-		service.createchoferDespacho(choferDespacho);
-		return new ResponseEntity<ChoferDespacho>(choferDespacho, new HttpHeaders(), HttpStatus.OK);
+
+		if(service.findByNombre(choferDespacho.getNombre())) {
+			return new ResponseEntity<ChoferDespacho>(choferDespacho, new HttpHeaders(), HttpStatus.CONFLICT);
+		}else {
+			choferDespacho.setId(seg.getSequenceNumbercD(ChoferDespacho.SEQUENCE_NAME));
+			service.createchoferDespacho(choferDespacho);
+			
+			return new ResponseEntity<ChoferDespacho>(choferDespacho, new HttpHeaders(), HttpStatus.OK);
+		}
+		
+		
 	}
 
 	@PutMapping("/choferDespacho")

@@ -5,7 +5,6 @@ import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -20,7 +19,6 @@ public class ChoferDespacho {
 	private Long id;
 	
 	@NotBlank
-	@Indexed(unique = true)
     @Size(max=50)
 	@Field("nombreChoferDespacho")
 	private String nombre;

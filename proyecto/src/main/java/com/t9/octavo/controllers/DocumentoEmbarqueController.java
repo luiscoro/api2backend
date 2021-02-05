@@ -52,7 +52,7 @@ public class DocumentoEmbarqueController {
 
 	@PostMapping("/documentoEmbarque")
 	public ResponseEntity<DocumentoEmbarque> createdocumentoEmbarque(@RequestBody DocumentoEmbarque documentoEmbarque){
-		documentoEmbarque.setId(seg.getSequenceNumber(DocumentoEmbarque.SEQUENCE_NAME));
+		documentoEmbarque.setId(seg.getSequenceNumberdE(DocumentoEmbarque.SEQUENCE_NAME));
 		service.createdocumentoEmbarque(documentoEmbarque);
 		return new ResponseEntity<DocumentoEmbarque>(documentoEmbarque, new HttpHeaders(), HttpStatus.OK);
 	}

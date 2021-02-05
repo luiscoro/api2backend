@@ -13,6 +13,8 @@ public interface ChoferDespachoRepository extends MongoRepository<ChoferDespacho
 
 	Optional <ChoferDespacho> findById(Long id);
 	
+	Optional <ChoferDespacho> findByNombre(String nombre);
+	
 	void deleteById(Long id);
 	
 	List<ChoferDespacho> findByNombreContaining(String nombre);

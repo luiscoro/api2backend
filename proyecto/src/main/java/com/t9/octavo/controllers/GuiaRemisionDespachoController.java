@@ -50,7 +50,7 @@ public class GuiaRemisionDespachoController {
 
 	@PostMapping("/guiaRemisionDespacho")
 	public ResponseEntity<GuiaRemisionDespacho> createguiaRemisionDespacho(@RequestBody GuiaRemisionDespacho guiaRemisionDespacho){
-		guiaRemisionDespacho.setId(seg.getSequenceNumber(GuiaRemisionDespacho.SEQUENCE_NAME));
+		guiaRemisionDespacho.setId(seg.getSequenceNumbergR(GuiaRemisionDespacho.SEQUENCE_NAME));
 		service.createguiaRemisionDespacho(guiaRemisionDespacho);
 		return new ResponseEntity<GuiaRemisionDespacho>(guiaRemisionDespacho, new HttpHeaders(), HttpStatus.OK);
 	}

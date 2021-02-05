@@ -10,16 +10,32 @@ public class DbSequence {
 	@Field("_id")
 	private String id;
 	
-	@Field("seq")
-	private Long seq;
+	@Field("seqcD")
+	private Long seqcD;
+	
+	@Field("seqdE")
+	private Long seqdE;
+	
+	@Field("seqgR")
+	private Long seqgR;
+	
+	@Field("seqnC")
+	private Long seqnC;
+	
+	@Field("seqtN")
+	private Long seqtN;
 
 	public DbSequence() {
 
 	}
 
-	public DbSequence(String id, Long seq) {
+	public DbSequence(String id, Long seqcD, Long seqdE, Long seqgR, Long seqnC, Long seqtN) {
 		this.id = id;
-		this.seq = seq;
+		this.seqcD = seqcD;
+		this.seqdE = seqdE;
+		this.seqgR = seqgR;
+		this.seqnC = seqnC;
+		this.seqtN = seqtN;
 	}
 
 	public String getId() {
@@ -30,12 +46,46 @@ public class DbSequence {
 		this.id = id;
 	}
 
-	public long getSeq() {
-		return seq;
+	public Long getSeqcD() {
+		return seqcD;
 	}
 
-	public void setSeq(Long seq) {
-		this.seq = seq;
+	public void setSeqcD(Long seqcD) {
+		this.seqcD = seqcD;
 	}
+
+	public Long getSeqdE() {
+		return seqdE;
+	}
+
+	public void setSeqdE(Long seqdE) {
+		this.seqdE = seqdE;
+	}
+
+	public Long getSeqgR() {
+		return seqgR;
+	}
+
+	public void setSeqgR(Long seqgR) {
+		this.seqgR = seqgR;
+	}
+
+	public Long getSeqnC() {
+		return seqnC;
+	}
+
+	public void setSeqnC(Long seqnC) {
+		this.seqnC = seqnC;
+	}
+
+	public Long getSeqtN() {
+		return seqtN;
+	}
+
+	public void setSeqtN(Long seqtN) {
+		this.seqtN = seqtN;
+	}
+
+	
 	
 }

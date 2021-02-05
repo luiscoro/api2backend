@@ -36,6 +36,15 @@ public class ChoferDespachoService {
 		}
 	}
 
+	public boolean findByNombre(String nombre){
+		Optional<ChoferDespacho> choferDespacho = repo.findByNombre(nombre);
+		if(choferDespacho.isPresent()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public List<ChoferDespacho> findByNombreContaining(String nombre){
 		List<ChoferDespacho> choferDespachoList = repo.findByNombreContaining(nombre);
 		if(choferDespachoList.size() > 0) {

@@ -1,8 +1,12 @@
 package com.t9.octavo.models;
 
+import org.springframework.data.annotation.Id;
+
 public class Factura {
 
+	@Id
 	String IdFactura;
+	
 	int iva;
 	double totalVenta;
 	int tipoFactura;
