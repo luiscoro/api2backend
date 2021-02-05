@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;	
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class GuiaRemisionDespachoController {
 	@Autowired
 	GuiaRemisionDespachoService service;
