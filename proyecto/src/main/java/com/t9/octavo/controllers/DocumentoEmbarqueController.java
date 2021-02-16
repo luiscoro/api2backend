@@ -5,6 +5,7 @@ import com.t9.octavo.RecordNotFoundException;
 import com.t9.octavo.models.DocumentoEmbarque;
 //SERVICIO
 import com.t9.octavo.services.DocumentoEmbarqueService;
+import com.t9.octavo.services.GuiaRemisionDespachoService;
 import com.t9.octavo.services.SequenceGeneratorService;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -19,17 +20,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;	
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class DocumentoEmbarqueController {
 	@Autowired
 	DocumentoEmbarqueService service;
 	
 	@Autowired
 	SequenceGeneratorService seg;
+	
+	@Autowired
+	GuiaRemisionDespachoService gd;
 	
 	@GetMapping("/documentoEmbarque")
 	public ResponseEntity<List<DocumentoEmbarque>> getAll() {
@@ -52,9 +59,15 @@ public class DocumentoEmbarqueController {
 
 	@PostMapping("/documentoEmbarque")
 	public ResponseEntity<DocumentoEmbarque> createdocumentoEmbarque(@RequestBody DocumentoEmbarque documentoEmbarque){
+		
+		if(gd.findById1(documentoEmbarque.getIdg())) {
 		documentoEmbarque.setId(seg.getSequenceNumberdE(DocumentoEmbarque.SEQUENCE_NAME));
 		service.createdocumentoEmbarque(documentoEmbarque);
 		return new ResponseEntity<DocumentoEmbarque>(documentoEmbarque, new HttpHeaders(), HttpStatus.OK);
+		}else {
+			
+			return new ResponseEntity<DocumentoEmbarque>(documentoEmbarque, new HttpHeaders(), HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@PutMapping("/documentoEmbarque")

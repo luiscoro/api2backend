@@ -14,6 +14,7 @@ public interface TipoNotaCreditoRepository extends MongoRepository<TipoNotaCredi
 
 	Optional <TipoNotaCredito> findById(Long id);
 	
+	Optional <TipoNotaCredito> findByDetalle(String detalle);
 	
 	void deleteById(Long id);
 	

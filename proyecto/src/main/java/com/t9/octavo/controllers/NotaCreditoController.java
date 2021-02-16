@@ -1,11 +1,12 @@
 package com.t9.octavo.controllers;
 
 import com.t9.octavo.RecordNotFoundException;
-import com.t9.octavo.models.Factura;
+
 import com.t9.octavo.models.NotaCredito;
-import com.t9.octavo.services.ControlNotaCredito;
+import com.t9.octavo.services.FacturaService;
 import com.t9.octavo.services.NotaCreditoService;
 import com.t9.octavo.services.SequenceGeneratorService;
+import com.t9.octavo.services.TipoNotaCreditoService;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +20,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;	
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class NotaCreditoController {
 	@Autowired
 	NotaCreditoService service;
@@ -32,9 +36,11 @@ public class NotaCreditoController {
 	SequenceGeneratorService seg;
 	
 	@Autowired
-	ControlNotaCredito cnc;
+	TipoNotaCreditoService ts;
 	
-	Factura factura;
+	@Autowired
+	FacturaService servicef;
+	
 	
 	@GetMapping("/notaCredito")
 	public ResponseEntity<List<NotaCredito>> getAll() {
@@ -60,32 +66,40 @@ public class NotaCreditoController {
 		return new ResponseEntity<List<NotaCredito>>(list, new HttpHeaders(), HttpStatus.OK);
 	}				
 
-	 @PostMapping("/notaCredito")
+	@PostMapping("/notaCredito")
 	public ResponseEntity<NotaCredito> createnotaCredito(@RequestBody NotaCredito notaCredito){
 	
-		String id="1";
+		/*String id="1";
 		if(cnc.findById(id)){
 			
 			if(cnc.limiteNotaCredito(factura.getTotalVenta())) {
 				//false mayor
-				//true menor o igual
+				//true menor o igual*/
+		
+		if (servicef.findById1(notaCredito.getIdf()) && ts.findByDetalle(notaCredito.getTipo())) {
 				notaCredito.setId(seg.getSequenceNumbernC(NotaCredito.SEQUENCE_NAME));//generamos el id increm
 				service.createnotaCredito(notaCredito);//creamos la nota credito
 				return new ResponseEntity<NotaCredito>(notaCredito, new HttpHeaders(), HttpStatus.OK);
 			}else {
-				return new ResponseEntity<NotaCredito>(notaCredito, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<NotaCredito>(notaCredito, new HttpHeaders(), HttpStatus.NOT_FOUND);
 			}
 			
-		}else {
+		/*}else {
 			return new ResponseEntity<NotaCredito>(notaCredito, new HttpHeaders(), HttpStatus.NOT_FOUND);
 		}	
-	}	
+	}	*/
+}
 	
 
 	@PutMapping("/notaCredito")
 	public ResponseEntity<NotaCredito> updatenotaCredito(@RequestBody NotaCredito notaCredito) throws RecordNotFoundException{
+		
+		if(ts.findByDetalle(notaCredito.getTipo())) {
 		service.updatenotaCredito(notaCredito);
 		return new ResponseEntity<NotaCredito>(notaCredito, new HttpHeaders(), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<NotaCredito>(notaCredito, new HttpHeaders(), HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@DeleteMapping("/notaCredito/{id}")

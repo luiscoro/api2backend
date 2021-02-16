@@ -18,9 +18,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class TipoNotaCreditoController {
 	@Autowired
 	TipoNotaCreditoService service;
@@ -50,9 +53,14 @@ public class TipoNotaCreditoController {
 	@PostMapping("/tipoNotaCredito")
 	public ResponseEntity<TipoNotaCredito> createtipoNotaCredito(@RequestBody TipoNotaCredito tipoNotaCredito){
 		
+
+		if(service.findByDetalle(tipoNotaCredito.getDetalle())) {
+			return new ResponseEntity<TipoNotaCredito>(tipoNotaCredito, new HttpHeaders(), HttpStatus.CONFLICT);
+		}else {
 		tipoNotaCredito.setId(seg.getSequenceNumbertN(TipoNotaCredito.SEQUENCE_NAME));
 		service.createtipoNotaCredito(tipoNotaCredito);
 		return new ResponseEntity<TipoNotaCredito>(tipoNotaCredito, new HttpHeaders(), HttpStatus.OK);
+		}
 	}
 
 	@PutMapping("/tipoNotaCredito")

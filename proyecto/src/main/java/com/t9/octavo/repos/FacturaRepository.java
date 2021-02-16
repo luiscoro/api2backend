@@ -7,10 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.t9.octavo.models.Factura;
 
-@Repository
-public interface FacturaRepository extends MongoRepository<Factura,String>{
 
-	Optional<Factura> findById(String IdFactura);
+@Repository
+public interface FacturaRepository extends MongoRepository<Factura,Long>{
+
+	Optional <Factura> findById(Long id);
 
 	
 	

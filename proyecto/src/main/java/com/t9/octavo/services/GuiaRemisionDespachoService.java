@@ -34,6 +34,15 @@ public class GuiaRemisionDespachoService {
 			throw new RecordNotFoundException("No existe id de guia de remisión");
 		}
 	}
+	
+	public boolean findById1(Long id){
+		Optional<GuiaRemisionDespacho> gui = repo.findById(id);
+		if(gui.isPresent()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public List<GuiaRemisionDespacho> findByFecha(Date fecha){
 		List<GuiaRemisionDespacho> guiaRemisionDespachoList = repo.findAllByFecha(fecha);		

@@ -1,7 +1,6 @@
 package com.t9.octavo.models;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 
@@ -9,7 +8,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.format.annotation.DateTimeFormat;
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 	
 @Document (collection = "notaCredito")
 public class NotaCredito {
@@ -21,7 +22,7 @@ public class NotaCredito {
 	@Field("_id")
 	private Long id;
 	
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	@Field("fechaNotaCredito")
 	private Date fecha = new Date();
 	
@@ -30,26 +31,34 @@ public class NotaCredito {
     @Field("responsableNotaCredito")
 	private String responsable;
 	
+	@Field("valorNotaCredito")
+	public double valor;
+	
+	
 	@Size(max=200)
 	@Field("observacionesNotaCredito")
 	private String observaciones;
 	
-	@Field("valorNotaCredito")
-	public double valor;
+	@Field("idFactura")
+	public Long idf;
 	
-	private Set<NotaCredito> notaCredito;
+	@Field("tipoNota")
+	public String tipo;
+	
+	
 	
 	public NotaCredito() {
 		
 	}
 
-	public NotaCredito(Long id, Date fecha,String responsable,String observaciones, double valor) {
+	public NotaCredito(Long id, Date fecha,String responsable, double valor, String observaciones,Long idf,String tipo) {
 		this.id = id;
 		this.fecha = fecha;
 		this.responsable = responsable;
-		this.observaciones = observaciones;
 		this.valor = valor;
-		
+		this.observaciones = observaciones;
+		this.idf=idf;
+		this.tipo=tipo;
 	}
 
 	public Long getId() {
@@ -76,6 +85,14 @@ public class NotaCredito {
 		this.responsable = responsable;
 	}
 	
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor =valor;
+	}
+	
 	public String getObservaciones() {
 		return observaciones;
 	}
@@ -84,22 +101,31 @@ public class NotaCredito {
 		this.observaciones = observaciones;
 	}
 
-	public double getValor() {
-		return valor;
+	public Long getIdf() {
+		return idf;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
+	public void setIdf(Long idf) {
+		this.idf = idf;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
-	public float getTotal() {
+	
+	/*public float getTotal() {
 		float total=0;
 		for(NotaCredito nc: this.notaCredito) {
 			total += nc.valor;
 		}
 		
 		return 0;
-	}
+	}*/
 	
 	
 	

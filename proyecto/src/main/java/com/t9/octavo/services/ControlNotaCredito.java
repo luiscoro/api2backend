@@ -24,7 +24,7 @@ public class ControlNotaCredito {
 	
 	NotaCredito nc;
 	
-	public boolean findById(String id){
+	public boolean findById(Long id){
 		Optional<Factura> factura = repofac.findById(id);
 		if(factura.isPresent()) {
 			return true;
@@ -33,7 +33,7 @@ public class ControlNotaCredito {
 		}
 	} 
 	
-	public boolean limiteNotaCredito(double totalFactura) {//valor de la factura
+	/*public boolean limiteNotaCredito(double totalFactura) {//valor de la factura
 	//double valor = nc.getValor();//valor de la nota de credito
 	double cont =0;
 	cont = nc.getTotal();
@@ -43,5 +43,5 @@ public class ControlNotaCredito {
 	}else {return true;//el valor de la nota de credito es menor al de la factura
 	}
 	
-	}
+	}*/
 }

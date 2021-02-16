@@ -1,55 +1,46 @@
 package com.t9.octavo.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+@Document (collection = "factura")
 public class Factura {
 
 	@Id
-	String IdFactura;
+	@Field("_id")
+	private Long id;
 	
-	int iva;
-	double totalVenta;
-	int tipoFactura;
-	
-	public Factura(String idFactura, int iva, double totalVenta, int tipoFactura) {
+	@Field("total")
+	double total;
+
+	public Factura() {
+		
+	}
+
+	public Factura(Long id, double total) {
 		super();
-		IdFactura = idFactura;
-		this.iva = iva;
-		this.totalVenta = totalVenta;
-		this.tipoFactura = tipoFactura;
+		this.id = id;
+		this.total = total;
 	}
 
-	public String getIdFactura() {
-		return IdFactura;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdFactura(String idFactura) {
-		IdFactura = idFactura;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public int getIva() {
-		return iva;
+	public double getTotal() {
+		return total;
 	}
 
-	public void setIva(int iva) {
-		this.iva = iva;
+	public void setTotal(double total) {
+		this.total = total;
 	}
-
-	public double getTotalVenta() {
-		return totalVenta;
-	}
-
-	public void setTotalVenta(double totalVenta) {
-		this.totalVenta = totalVenta;
-	}
-
-	public int getTipoFactura() {
-		return tipoFactura;
-	}
-
-	public void setTipoFactura(int tipoFactura) {
-		this.tipoFactura = tipoFactura;
-	}
+	
+	
 	
 	
 	

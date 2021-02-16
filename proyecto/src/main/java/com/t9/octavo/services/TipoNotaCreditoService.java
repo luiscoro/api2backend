@@ -68,9 +68,14 @@ public class TipoNotaCreditoService {
 		}
 	}
 	
-	/*public void acumuladoNotaCredito() throws RecordNotFoundException{
-		Optional<TipoNotaCredito> tipoNotaCreditoOptio
-	}*/
+	public boolean findByDetalle(String detalle){
+		Optional<TipoNotaCredito> tipoNota = repo.findByDetalle(detalle);
+		if(tipoNota.isPresent()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 
 }

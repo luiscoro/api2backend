@@ -52,7 +52,7 @@ public class ChoferDespachoController {
 	@PostMapping("/choferDespacho")
 	public ResponseEntity<ChoferDespacho> createchoferDespacho(@RequestBody ChoferDespacho choferDespacho){
 
-		if(service.findByNombre(choferDespacho.getNombre())) {
+		if(service.findByNombre(choferDespacho.getNombre()) || service.findByPlaca(choferDespacho.getPlaca())) {
 			return new ResponseEntity<ChoferDespacho>(choferDespacho, new HttpHeaders(), HttpStatus.CONFLICT);
 		}else {
 			choferDespacho.setId(seg.getSequenceNumbercD(ChoferDespacho.SEQUENCE_NAME));

@@ -6,7 +6,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.format.annotation.DateTimeFormat;
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Document (collection = "documentoEmbarque")
 public class DocumentoEmbarque {
@@ -18,22 +20,32 @@ public class DocumentoEmbarque {
 	@Field("_id")
 	private Long id;
 	
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	@Field("fechaDocumentoEmbarque")
 	private Date fecha = new Date();
+	
+	@Field("sectorEmbarque")
+	private String sector;
+		
 	
 	@Size(max=200)
     @Field("observacionesDocumentoEmbarque")
 	private String observaciones;
 	
+	@Field("idGuia")
+	public Long idg;
+	
 	public DocumentoEmbarque() {
 
 	}
 
-	public DocumentoEmbarque(Long id, Date fecha,String observaciones) {
+	public DocumentoEmbarque(Long id, Date fecha, String sector, String observaciones, Long idg) {
+
 		this.id = id;
 		this.fecha = fecha;
+		this.sector = sector;
 		this.observaciones = observaciones;
+		this.idg = idg;
 	}
 
 	public Long getId() {
@@ -48,6 +60,14 @@ public class DocumentoEmbarque {
 		return fecha;
 	}
 	
+	public String getSector() {
+		return sector;
+	}
+
+	public void setSector(String sector) {
+		this.sector = sector;
+	}
+
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
@@ -58,6 +78,14 @@ public class DocumentoEmbarque {
 	
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+	
+	public Long getIdg() {
+		return idg;
+	}
+
+	public void setIdg(Long idg) {
+		this.idg = idg;
 	}
 	
 }
